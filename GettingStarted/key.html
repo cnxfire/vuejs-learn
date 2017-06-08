@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>iview example</title>
+    <link rel="stylesheet" type="text/css" href="./css/demo.css">
+    <script type="text/javascript" src="./js/vue.js"></script>
+    <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <template v-if="login_type == 'username'">
+        <lable>username</lable>
+        <input type="text" placeholder="input username">
+    </template>
+    <template v-if="login_type == 'email'">
+        <lable>email</lable>
+        <input type="text" placeholder="input email">
+    </template></br>
+    <button @click="togglelogin">toggle login</button>
+</div>
+<script>
+var vm = new Vue({
+    el:'#app',
+    data:{
+        login_type : 'username'
+    },
+    methods:{
+            togglelogin: function () {
+                return this.login_type = this.login_type === 'username' ? 'email':'username'
+            }
+    }
+})
+  </script>
+</body>
+</html>

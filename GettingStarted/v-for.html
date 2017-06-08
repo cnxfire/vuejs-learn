@@ -3,24 +3,31 @@
 <head>
     <meta charset="utf-8">
     <title>iview example</title>
-    <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">
+    <link rel="stylesheet" type="text/css" href="./css/demo.css">
     <script type="text/javascript" src="./js/vue.js"></script>
     <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
 </head>
 <body>
 <div id="app">
-    <p>{{message}}</p>
-    <input type="text" v-model="message">
+    <ol>
+        <li v-for="item in items">
+            {{item.text}}
+        </li>
+    </ol>
 </div>
-
-
 <script>
     var vm = new Vue({
         el: '#app',
         data: {
-            message : "Hello World!"
+            items: [
+                {text: '学习 JavaScript'},
+                {text: '学习 Vue'},
+                {text: '整个牛项目'}
+            ]
+
         }
-    })
+    });
+
 </script>
 </body>
 </html>

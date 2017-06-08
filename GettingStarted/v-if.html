@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>v-if</title>
+    <link rel="stylesheet" type="text/css" href="./css/demo.css">
+    <script type="text/javascript" src="./js/vue.js"></script>
+    <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1 v-if="yes">Yes,It's Yes!</h1>
+    <h1 v-if="no">Oh.......</h1>
+    <h1 v-if="age >= 28">年龄大于等于28咯!</h1>
+    <h1 v-if="name.indexOf('Cnxfire')>= 0">名字是{{name}}</h1>
+    <h1 v-if="blood === 'A'">血型是A</h1>
+    <h1 v-else-if="blood === 'B'">血型是B</h1>
+    <h1 v-else-if="blood === 'AB'">血型是AB</h1>
+    <h1 v-else>血型是O</h1>
+
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            yes: true,
+            no: false,
+            age: 28,
+            name: 'Cnxfire',
+            blood: 'O'
+        }
+    })
+</script>
+</body>
+</html>

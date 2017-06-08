@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>iview example</title>
+    <link rel="stylesheet" type="text/css" href="./css/demo.css">
+    <script type="text/javascript" src="./js/vue.js"></script>
+    <!--<script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>-->
+</head>
+<body>
+<div id="app">
+    <fieldset>
+        <legend>Create New Person</legend>
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" v-model="newPerson.name">
+        </div>
+        <div class="form-group">
+            <label>Age:</label>
+            <input type="text" v-model="newPerson.age">
+        </div>
+        <div class="form-group">
+            <label>sex:</label>
+            <label>
+                <select v-model="newPerson.sxe">
+                    <option value="man" selected>man</option>
+                    <option value="women">women</option>
+                </select>
+            </label>
+        </div>
+        <div class="form-group">
+            <label></label>
+            <button @click="createPerson">Create New Person</button>
+        </div>
+    </fieldset>
+    <table>
+        <thead>
+        <tr>
+            <th v-for="columns in columns1">{{columns.title}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(person,index) in people">
+            <td>{{person.name}}</td>
+            <td>{{person.age}}</td>
+            <td>{{person.address}}</td>
+            <td :class="'text-center'">
+                <button @click="deletePerson(index)">Delete</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            columns1: [
+                {
+                    title: '姓名',
+                    key: 'name',
+                },
+                {
+                    title: '年龄',
+                    key: 'age'
+                },
+                {
+                    title: '地址',
+                    key: 'address'
+                },
+                {
+                    title: '操作',
+                    key: 'action'
+                }
+            ],
+            people: [
+                {
+                    name: '熊平平',
+                    age: 28,
+                    address: '东莞市东城西路138号泰丰大厦'
+                },
+                {
+                    name: '张小刚',
+                    age: 25,
+                    address: '北京市海淀区西二旗'
+                },
+                {
+                    name: '李小红',
+                    age: 30,
+                    address: '上海市浦东新区世纪大道'
+                },
+                {
+                    name: '周小伟',
+                    age: 26,
+                    address: '深圳市南山区深南大道'
+                }
+            ],
+            newPerson: {
+                name: '',
+                age: 0,
+                sex: 'man'
+            }
+        },
+        methods: {
+            createPerson: function () {
+                this.people.push(this.newPerson);
+                this.newPerson = {name:'',age:0,sex:'man'}
+            },
+            deletePerson :function (index) {
+                this.people.splice(index,1);
+    }
+        }
+    })
+
+</script>
+</body>
+</html>
