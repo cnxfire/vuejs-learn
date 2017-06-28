@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="./css/demo.css"/>
+</head>
+
+<body>
+<div id="app">
+    <div id="searchBar">
+        Search <input type="text" v-model="searchQuery"/>
+    </div>
+    <simple-grid :users="gridData" :columns="gridColumns" :filter-key="searchQuery">
+    </simple-grid>
+</div>
+
+<template id="grid-template">
+    <table>
+        <thead>
+        <tr>
+            <th v-for="col in columns">
+                {{ col | capitalize }}
+            </th>
+            <th>delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(user,index) in filterusers">
+            <td v-for="col in columns">
+                {{user[col]}}
+            </td>
+            <td>
+                <center><button @click="deleteItem(index)">删除</button></center>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</template>
+
+</body>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+    Vue.component('simple-grid', {
+        template: '#grid-template',
+        props: {
+            users: Array,
+            columns: Array,
+            filterKey: String
+        },
+        computed: {
+            filterusers: function () {
+                var filterKey = this.filterKey && this.filterKey.toLowerCase()
+                var data = this.users
+                if (filterKey) {
+                    data = data.filter(function (row) {
+                        return Object.keys(row).some(function (key) {
+                            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                        })
+                    })
+                }
+                return data
+            }
+        },
+        filters: {
+            capitalize: str => {
+                return str.charAt(0).toUpperCase() + str.slice(1)
+            }
+        },
+        methods:{
+            deleteItem:function(index) {
+                this.filterusers.splice(index,1)
+                console.log(index)
+            }
+        }
+    });
+
+    let demo = new Vue({
+        el: '#app',
+        data: {
+            searchQuery: '',
+            gridColumns: ['name', 'age', 'sex'],
+            gridData: [{
+                name: 'Jack',
+                age: 30,
+                sex: 'Male'
+            }, {
+                name: 'Bill',
+                age: 26,
+                sex: 'Male'
+            }, {
+                name: 'Tracy',
+                age: 22,
+                sex: 'Female'
+            }, {
+                name: 'Chris',
+                age: 36,
+                sex: 'Male'
+            }]
+        }
+    });
+</script>
+
+</html>

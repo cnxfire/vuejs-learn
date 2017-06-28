@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {{message}}
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item" v-for="(todo,index) in todos">
+                 {{todo.title}}
+                    <button type="button" class="btn btn-danger pull-right btn-xs" @click="deleteTodo(index)">Delete</button>
+                </li>
+
+            </ul>
+            <form v-on:submit.prevent="addTodos(newTodo)">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Add a new todo" v-model="newTodo.title">
+                        <div class="input-group-btn">
+                            <button class="btn btn-info pull-right" type="submit">ADD</button>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+    
+</body>
+<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+<script>
+    var vm =new Vue({
+        el:'.container',
+        data:{
+            message:'My Todo list!',
+            todos:[
+            {title:'test'},
+            ],
+            newTodo:{title:''}
+        },
+        methods:{
+            deleteTodo(index){
+                this.todos.splice(index,1)
+            },
+            addTodos(newTodo){
+                var value = this.newTodo.title && this.newTodo.title.trim()
+                if (!value){
+                    return
+                }
+                this.todos.push(newTodo);
+                this.newTodo = {title:''}
+            }
+        }
+    })
+</script>
+</html>
